@@ -7,7 +7,8 @@ import Link from "next/link";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
 
 
-const InterviewCard = ({interviewId, userId, role, type, techstack, createdAt }: interviewProps ) => {
+
+const InterviewCard = ({interviewId, userId, role, type, techstack, createdAt }: InterviewCardProps ) => {
     const feedback = null as Feedback | null;
     const normalizedType = /mix/gi.test(type) ? 'Mixed' : type;
     const formattedDate = dayjs(feedback?.createdAt || createdAt || Date.now()).format('MMM D, YYYY');
@@ -33,7 +34,7 @@ const InterviewCard = ({interviewId, userId, role, type, techstack, createdAt }:
 
                         <div className={"flex flex-row gap-2 items-center"}>
                             <Image src="/star.svg" alt="star" width={22} height={22} />
-                            <p>{feedback?.totalscore || '---'}/100</p>
+                            <p>{feedback?.totalScore || '---'}/100</p>
                         </div>
                     </div>
 
