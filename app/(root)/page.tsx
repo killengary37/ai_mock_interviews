@@ -2,8 +2,11 @@
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import {dummyInterviews} from "@/constants";
+
 import InterviewCard from "@/components/InterviewCard";
+import {dummyInterviews} from "@/constants";
+
+
 
 const Page = () => {
     return (

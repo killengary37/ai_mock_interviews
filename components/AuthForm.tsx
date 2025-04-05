@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import { z } from "zod"
+import { z } from "zod";
 import Link from "next/link";
-
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-
 import Image from "next/image";
+import { toast } from "sonner";
+import { auth } from "@/firebase/client";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
 
 import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button"
-import {toast} from "sonner";
-import FormField from "@/components/FormField";
-import {useRouter} from "next/navigation";
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
-import {auth} from "@/firebase/client";
-import {signUp, signIn} from "@/lib/actions/auth.action";
+import { Button } from "@/components/ui/button";
 
-
-
+import { signIn, signUp } from "@/lib/actions/auth.action";
+import FormField from "./FormField";
 
 
 
@@ -35,7 +35,7 @@ const AuthForm = ({type} : {type: FormType}) => {
 
     const formSchema = authFormSchema(type);
 
-    // 1. Define your form.
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -73,7 +73,7 @@ const AuthForm = ({type} : {type: FormType}) => {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
                 const idToken = await userCredential.user.getIdToken()
-                if(idToken) {
+                if(!idToken) {
                     toast.error('Sign in failed')
                     return;
                 }
